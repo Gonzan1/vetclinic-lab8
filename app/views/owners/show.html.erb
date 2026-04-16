@@ -1,0 +1,19 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title"><%= "#{@owner.first_name} #{@owner.last_name}" %></h2>
+    <p><strong>Email:</strong> <%= @owner.email %></p>
+    <p><strong>Phone:</strong> <%= @owner.phone %></p>
+    <p><strong>Address:</strong> <%= @owner.address %></p>
+  </div>
+</div>
+
+<h3>Registered Pets</h3>
+<ul class="list-group">
+  <% @owner.pets.each do |pet| %>
+    <li class="list-group-item">
+      <%= link_to "#{pet.name} (#{pet.species} - #{pet.breed})", pet_path(pet) %>
+    </li>
+  <% end %>
+</ul>
+<br>
+<%= link_to 'Back to Owners', owners_path, class: "btn btn-secondary" %>

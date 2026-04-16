@@ -1,0 +1,19 @@
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title"><%= "#{@vet.first_name} #{@vet.last_name}" %></h2>
+    <p><strong>Email:</strong> <%= @vet.email %></p>
+    <p><strong>Phone:</strong> <%= @vet.phone %></p>
+    <p><strong>Specialization:</strong> <%= @vet.specialization %></p>
+  </div>
+</div>
+
+<h3>Assigned Appointments</h3>
+<ul class="list-group">
+  <% @vet.appointments.each do |app| %>
+    <li class="list-group-item">
+      <%= link_to "#{human_datetime(app.date)} - Pet: #{app.pet.name}", appointment_path(app) %>
+    </li>
+  <% end %>
+</ul>
+<br>
+<%= link_to 'Back to Vets', vets_path, class: "btn btn-secondary" %>

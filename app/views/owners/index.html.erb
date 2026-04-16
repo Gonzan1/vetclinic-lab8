@@ -1,0 +1,19 @@
+<h1>Owners</h1>
+<table class="table table-striped table-hover">
+  <thead class="table-dark">
+    <tr>
+      <th>Full Name</th><th>Email</th><th>Phone</th><th>Pets Count</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @owners.each do |owner| %>
+      <tr>
+        <td><%= "#{owner.first_name} #{owner.last_name}" %></td>
+        <td><%= owner.email %></td>
+        <td><%= owner.phone %></td>
+        <td><%= owner.pets.count %></td>
+        <td><%= link_to 'View Details', owner_path(owner), class: "btn btn-sm btn-primary" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
