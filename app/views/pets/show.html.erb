@@ -9,13 +9,23 @@
   </div>
 </div>
 
-<h3>Appointments History</h3>
-<ul class="list-group">
-  <% @pet.appointments.each do |app| %>
-    <li class="list-group-item">
+<h3>Upcoming Appointments</h3>
+<ul class="list-group mb-4">
+  <% @pet.appointments.upcoming.each do |app| %>
+    <li class="list-group-item list-group-item-info">
       <%= link_to "#{human_datetime(app.date)} - #{app.reason}", appointment_path(app) %>
     </li>
   <% end %>
 </ul>
+
+<h3>Past Appointments</h3>
+<ul class="list-group mb-4">
+  <% @pet.appointments.past.each do |app| %>
+    <li class="list-group-item text-muted">
+      <%= link_to "#{human_datetime(app.date)} - #{app.reason}", appointment_path(app) %>
+    </li>
+  <% end %>
+</ul>
+
 <br>
 <%= link_to 'Back to Pets', pets_path, class: "btn btn-secondary" %>

@@ -9,22 +9,21 @@ module ApplicationHelper
 
   def status_badge(status)
     case status
-    when 0 then "Scheduled"
-    when 1 then "In Progress"
-    when 2 then "Completed"
-    when 3 then "Cancelled"
+    when "scheduled" then "Scheduled"
+    when "in_progress" then "In Progress"
+    when "completed" then "Completed"
+    when "cancelled" then "Cancelled"
     else "Unknown"
     end
   end
 
-  # ¡NUEVO MÉTODO PARA LOS COLORES!
   def status_color(status)
     case status
-    when 0 then "bg-info text-dark"      # Celeste para Programada
-    when 1 then "bg-warning text-dark"   # Amarillo para En Progreso
-    when 2 then "bg-success"             # Verde para Completada
-    when 3 then "bg-danger"              # Rojo para Cancelada
-    else "bg-secondary"                  # Gris por defecto
+    when "scheduled" then "bg-info text-dark"
+    when "in_progress" then "bg-warning text-dark"
+    when "completed" then "bg-success"
+    when "cancelled" then "bg-danger"
+    else "bg-secondary"
     end
   end
 end
