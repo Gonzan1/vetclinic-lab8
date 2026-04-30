@@ -27,3 +27,9 @@
 
 <br>
 <%= link_to 'Back to Vets', vets_path, class: "btn btn-secondary" %>
+
+<div class="mt-4 d-flex gap-2">
+  <%= link_to 'Edit', edit_vet_path(@vet), class: "btn btn-warning" %>
+  <%= button_to 'Delete', @vet, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to 'Back to Vets', vets_path, class: "btn btn-secondary" %>
+</div>

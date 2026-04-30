@@ -3,4 +3,5 @@ class Treatment < ApplicationRecord
 
   # Validations
   validates :name, :administered_at, :appointment, presence: true
+  
 end

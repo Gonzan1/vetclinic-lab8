@@ -9,11 +9,23 @@
   </div>
 </div>
 
-<h3>Treatments Administered</h3>
+<!-- Título con el botón de agregar -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Treatments Administered</h3>
+  <%= link_to 'Add Treatment', new_appointment_treatment_path(@appointment), class: "btn btn-sm btn-success" %>
+</div>
+
 <% if @appointment.treatments.any? %>
   <table class="table table-bordered">
     <thead>
-      <tr><th>Name</th><th>Medication</th><th>Dosage</th><th>Administered At</th><th>Notes</th></tr>
+      <tr>
+        <th>Name</th>
+        <th>Medication</th>
+        <th>Dosage</th>
+        <th>Administered At</th>
+        <th>Notes</th>
+        <th>Actions</th> <!-- Agregamos columna para los botones -->
+      </tr>
     </thead>
     <tbody>
       <% @appointment.treatments.each do |treatment| %>
@@ -21,14 +33,24 @@
           <td><%= treatment.name %></td>
           <td><%= treatment.medication %></td>
           <td><%= treatment.dosage %></td>
-          <td><%= human_datetime(treatment.administered_at) %></td>
+          <td><%= human_datetime(treatment.administered_at) if treatment.administered_at.present? %></td>
           <td><%= treatment.notes %></td>
+          <td>
+            <!-- Botones de Editar y Eliminar en TU tabla -->
+            <%= link_to 'Edit', edit_appointment_treatment_path(@appointment, treatment), class: "btn btn-sm btn-warning" %>
+            <%= button_to 'Delete', appointment_treatment_path(@appointment, treatment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-danger mt-1" %>
+          </td>
         </tr>
       <% end %>
     </tbody>
   </table>
 <% else %>
-  <p>No treatments recorded for this appointment.</p>
+  <p class="text-muted mb-4">No treatments recorded for this appointment yet.</p>
 <% end %>
-<br>
-<%= link_to 'Back to Appointments', appointments_path, class: "btn btn-secondary" %>
+
+<!-- Botones finales de la Cita (Edit, Delete, Back) -->
+<div class="mt-4 d-flex gap-2">
+  <%= link_to 'Edit', edit_appointment_path(@appointment), class: "btn btn-warning" %>
+  <%= button_to 'Delete', @appointment, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+  <%= link_to 'Back to Appointments', appointments_path, class: "btn btn-secondary" %>
+</div>

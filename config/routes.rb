@@ -1,9 +1,12 @@
 Rails.application.routes.draw do
-  get "pages/home"
-  root 'pages#home'
+  root "pages#home"
   
-  resources :owners, only: [:index, :show]
-  resources :pets, only: [:index, :show]
-  resources :vets, only: [:index, :show]
-  resources :appointments, only: [:index, :show]
+  resources :owners
+  resources :pets
+  resources :vets
+  
+  # Rutas anidadas (Nested Resources) para las citas y sus tratamientos
+  resources :appointments do
+    resources :treatments, only: [:new, :create, :edit, :update, :destroy]
+  end
 end

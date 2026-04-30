@@ -1,18 +1,30 @@
 <h1>Owners</h1>
-<table class="table table-striped table-hover">
-  <thead class="table-dark">
+
+<!-- 1. El botón "New" va AQUÍ, arriba de la tabla -->
+<%= link_to 'New Owner', new_owner_path, class: "btn btn-success mb-3" %>
+
+<table class="table table-striped">
+  <thead>
     <tr>
-      <th>Full Name</th><th>Email</th><th>Phone</th><th>Pets Count</th><th>Actions</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Pets</th>
+      <th>Actions</th> <!-- Asegúrate de tener una columna para las acciones -->
     </tr>
   </thead>
   <tbody>
     <% @owners.each do |owner| %>
       <tr>
-        <td><%= "#{owner.first_name} #{owner.last_name}" %></td>
+        <td><%= owner.full_name %></td>
         <td><%= owner.email %></td>
-        <td><%= owner.phone %></td>
         <td><%= owner.pets.count %></td>
-        <td><%= link_to 'View Details', owner_path(owner), class: "btn btn-sm btn-primary" %></td>
+        
+        <!-- 2. Los 3 botones van AQUÍ, adentro de la última celda (td) de la fila -->
+        <td>
+          <%= link_to 'View', owner, class: "btn btn-sm btn-primary" %>
+          <%= link_to 'Edit', edit_owner_path(owner), class: "btn btn-sm btn-warning" %>
+          <%= button_to 'Delete', owner, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-sm btn-danger mt-1" %>
+        </td>
       </tr>
     <% end %>
   </tbody>

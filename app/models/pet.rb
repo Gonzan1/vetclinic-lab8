@@ -9,12 +9,12 @@ class Pet < ApplicationRecord
   scope :by_species, ->(species) { where(species: species) }
 
   # Validations
-  validates :name, :owner, presence: true
+  validates :name, :owner, :breed, presence: true
   validates :species, presence: true, inclusion: { in: %w[dog cat rabbit bird reptile other] }
   validates :weight, presence: true, numericality: { greater_than: 0 }
   validates :date_of_birth, presence: true
   validate :date_of_birth_cannot_be_in_the_future
-
+  
   private
 
   def capitalize_name

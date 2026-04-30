@@ -8,8 +8,12 @@ class Vet < ApplicationRecord
   scope :by_specialization, ->(specialization) { where(specialization: specialization) }
 
   # Validations
-  validates :first_name, :last_name, :specialization, presence: true
+  validates :first_name, :last_name, :specialization, :phone, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   private
 

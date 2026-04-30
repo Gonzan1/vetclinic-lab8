@@ -5,8 +5,12 @@ class Owner < ApplicationRecord
   before_validation :normalize_email
 
   # Validations
-  validates :first_name, :last_name, :phone, presence: true
+  validates :first_name, :last_name, :phone, :address, presence: true
   validates :email, presence: true, uniqueness: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 
   private
 

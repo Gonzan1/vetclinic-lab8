@@ -1,0 +1,4 @@
+<h2>Add Treatment to Appointment</h2>
+<p class="text-muted">For Pet: <%= @appointment.pet.name if @appointment.pet %></p>
+
+<%= render 'form', treatment: @treatment %>
