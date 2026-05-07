@@ -28,13 +28,13 @@
       </tr>
     </thead>
     <tbody>
-      <% @appointment.treatments.each do |treatment| %>
+      <% @treatments.each do |treatment| %>
         <tr>
           <td><%= treatment.name %></td>
           <td><%= treatment.medication %></td>
           <td><%= treatment.dosage %></td>
           <td><%= human_datetime(treatment.administered_at) if treatment.administered_at.present? %></td>
-          <td><%= treatment.notes %></td>
+          <td><%= treatment.clinical_notes %></td>
           <td>
             <!-- Botones de Editar y Eliminar en TU tabla -->
             <%= link_to 'Edit', edit_appointment_treatment_path(@appointment, treatment), class: "btn btn-sm btn-warning" %>

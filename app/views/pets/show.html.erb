@@ -1,11 +1,29 @@
+
 <div class="card mb-4">
   <div class="card-body">
-    <h2 class="card-title"><%= @pet.name %></h2>
-    <p><strong>Species:</strong> <%= @pet.species %></p>
-    <p><strong>Breed:</strong> <%= @pet.breed %></p>
-    <p><strong>Date of Birth:</strong> <%= human_date(@pet.date_of_birth) %></p>
-    <p><strong>Weight:</strong> <%= @pet.weight %> kg</p>
-    <p><strong>Owner:</strong> <%= link_to "#{@pet.owner.first_name} #{@pet.owner.last_name}", owner_path(@pet.owner) %></p>
+    <div class="row">
+      
+      <div class="col-md-8">
+        <h2 class="card-title mb-3"><%= @pet.name %></h2>
+        
+        <p class="card-text"><strong>Species:</strong> <%= @pet.species %></p>
+        <p class="card-text"><strong>Breed:</strong> <%= @pet.breed %></p>
+        <p class="card-text"><strong>Date of Birth:</strong> <%= @pet.date_of_birth.strftime("%B %d, %Y") if @pet.date_of_birth %></p>
+        <p class="card-text"><strong>Weight:</strong> <%= @pet.weight %> kg</p>
+        <p class="card-text"><strong>Owner:</strong> <%= link_to @pet.owner.first_name, @pet.owner %></p>
+      </div>
+
+      <div class="col-md-4 text-end">
+        <% if @pet.photo.attached? %>
+          <%= image_tag @pet.photo, class: "img-fluid rounded border shadow-sm", style: "max-height: 250px; object-fit: cover;" %>
+        <% else %>
+          <div class="bg-light border rounded d-flex align-items-center justify-content-center ms-auto shadow-sm" style="width: 200px; height: 200px;">
+            <span class="text-muted fst-italic">No photo available</span>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
   </div>
 </div>
 

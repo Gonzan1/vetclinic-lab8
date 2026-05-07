@@ -31,6 +31,19 @@
     <%= form.collection_select :owner_id, Owner.all, :id, :full_name, { prompt: "Select an owner" }, class: "form-select" %>
   </div>
 
+  <div class="mb-3">
+    <%= form.label :photo, "Pet Photo", class: "form-label" %>
+    
+    <% if pet.photo.attached? %>
+      <div class="mb-2">
+        <span class="d-block text-muted small mb-1">Current photo:</span>
+        <%= image_tag pet.photo, style: "width: 100px;", class: "img-thumbnail" %>
+      </div>
+    <% end %>
+
+    <%= form.file_field :photo, class: "form-control" %>
+  </div>
+
   <%= form.submit class: "btn btn-primary" %>
   <%= link_to 'Cancel', pets_path, class: "btn btn-secondary ms-2" %>
 <% end %>

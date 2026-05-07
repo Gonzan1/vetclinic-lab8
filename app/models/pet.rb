@@ -1,7 +1,7 @@
 class Pet < ApplicationRecord
   belongs_to :owner
   has_many :appointments
-
+  has_one_attached :photo
   # Callbacks
   before_save :capitalize_name
 
@@ -14,6 +14,7 @@ class Pet < ApplicationRecord
   validates :weight, presence: true, numericality: { greater_than: 0 }
   validates :date_of_birth, presence: true
   validate :date_of_birth_cannot_be_in_the_future
+  validate :acceptable_photo
   
   private
 
@@ -24,6 +25,22 @@ class Pet < ApplicationRecord
   def date_of_birth_cannot_be_in_the_future
     if date_of_birth.present? && date_of_birth > Date.today
       errors.add(:date_of_birth, "can't be in the future")
+    end
+  end
+
+  def acceptable_photo
+    # Si no hay foto adjunta, no hay nada que validar (es opcional)
+    return unless photo.attached?
+
+    # Validar el tamaño (máximo 5 megabytes)
+    unless photo.blob.byte_size <= 5.megabytes
+      errors.add(:photo, "is too big (must be 5MB or less)")
+    end
+
+    # Validar el formato
+    acceptable_types = ["image/jpeg", "image/png", "image/webp"]
+    unless acceptable_types.include?(photo.content_type)
+      errors.add(:photo, "must be a JPEG, PNG, or WEBP")
     end
   end
 end
