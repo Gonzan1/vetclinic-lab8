@@ -2,12 +2,34 @@
   <div class="container">
     <%= link_to 'VetClinic', root_path, class: "navbar-brand" %>
     <div class="collapse navbar-collapse">
+      
       <ul class="navbar-nav me-auto">
         <li class="nav-item"><%= link_to 'Owners', owners_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to 'Pets', pets_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to 'Vets', vets_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to 'Appointments', appointments_path, class: "nav-link" %></li>
       </ul>
+
+      <ul class="navbar-nav ms-auto">
+        <% if user_signed_in? %>
+          <li class="nav-item d-flex align-items-center">
+            <span class="nav-link text-white fw-bold me-3">
+              <%= current_user.first_name %> <%= current_user.last_name %>
+            </span>
+          </li>
+          <li class="nav-item">
+            <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "btn btn-danger btn-sm mt-1" %>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to "Sign in", new_user_session_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Sign up", new_user_registration_path, class: "nav-link" %>
+          </li>
+        <% end %>
+      </ul>
+
     </div>
   </div>
 </nav>

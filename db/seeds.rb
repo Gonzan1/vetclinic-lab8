@@ -15,6 +15,38 @@ Pet.destroy_all
 Vet.destroy_all
 Owner.destroy_all
 
+puts "Creating Devise Users (Admin, Vet, Owner)..."
+
+# 1. Admin User
+User.create!(
+  email: "admin@vetclinic.com",
+  password: "password123",
+  password_confirmation: "password123",
+  first_name: "System",
+  last_name: "Admin",
+  role: :admin
+)
+
+# 2. Vet User
+User.create!(
+  email: "vet@vetclinic.com",
+  password: "password123",
+  password_confirmation: "password123",
+  first_name: "Doctor",
+  last_name: "House",
+  role: :vet
+)
+
+# 3. Owner User
+User.create!(
+  email: "owner@vetclinic.com",
+  password: "password123",
+  password_confirmation: "password123",
+  first_name: "John",
+  last_name: "Perez",
+  role: :owner
+)
+
 puts "Creating Owners..."
 owner1 = Owner.create!(first_name: "Gonzalo", last_name: "Salinas", email: "gesalinas@miuandes.cl", phone: "+56912345678", address: "Mi Casa 123, Las Condes")
 owner2 = Owner.create!(first_name: "Vicente", last_name: "Santolaya", email: "vasantolaya@miuandes.cl", phone: "+56987654321", address: "Warren Smith 99, Las Condes")

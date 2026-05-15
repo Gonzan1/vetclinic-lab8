@@ -1,12 +1,14 @@
 Rails.application.routes.draw do
-  root "pages#home"
-  
+  devise_for :users
+  root "pages#home" 
+
+  # Los módulos de tu clínica
   resources :owners
   resources :pets
   resources :vets
   
-  # Rutas anidadas (Nested Resources) para las citas y sus tratamientos
+  # Citas y tratamientos anidados
   resources :appointments do
-    resources :treatments, only: [:new, :create, :edit, :update, :destroy]
+    resources :treatments
   end
 end

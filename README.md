@@ -1,31 +1,40 @@
-# VetClinic - Veterinary Management System (Lab 7)
+# VetClinic - Authentication (Lab 8)
 
-This is the Lab 7 version of the VetClinic application, enriched with Active Storage for pet profile photos and Action Text for rich clinical notes.
+This application has been updated to include user authentication using the **Devise** gem. 
+
+## Application Security
+The application is no longer fully open to the public. 
+* The **Home (root) page** remains public for anonymous visitors.
+* All other resource pages (Owners, Pets, Vets, Appointments, Treatments) are protected and require the user to sign in.
 
 ## Setup Instructions
 
-To run this application on your local machine, follow these steps:
+To run this application locally:
 
-1. Install the required Ruby gems:
+1. Install the required gems:
         bundle install
-
-2. Setup the database (this will drop, create, migrate, and seed the database with sample photos and rich text):
+2. Setup the database (this will drop, create, migrate, and seed the database):
         bin/rails db:setup
-
-3. Start the Rails server:
+3. Start the server:
         bin/rails server
 
-## System Dependencies
+## Seeded Users Credentials
 
-To properly handle image variants (resizing and cropping for thumbnails), this application requires **libvips** to be installed on your system. 
+The database is seeded with three default users (one for each role). You can use these credentials to sign in and test the application:
 
-Installation instructions depending on your OS:
-* **Ubuntu/Debian (WSL):** `sudo apt install libvips`
-* **macOS:** `brew install vips`
-* **Arch Linux:** `sudo pacman -S libvips`
+**1. Admin User**
+* **Email:** admin@vetclinic.com
+* **Password:** password123
 
-## Security Verification (Sanitization Check)
+**2. Veterinarian User**
+* **Email:** vet@vetclinic.com
+* **Password:** password123
 
-As part of the Action Text implementation, a Cross-Site Scripting (XSS) sanitization check was performed manually. 
+**3. Pet Owner User**
+* **Email:** owner@vetclinic.com
+* **Password:** password123
 
-**Result:** When injecting the script `<script>alert(1)</script>` into the Trix editor of a treatment's clinical notes, the script was properly sanitized by Action Text. Upon saving and viewing the show page, no alert was fired, and the script tags were neutralized and rendered as harmless text within the HTML output. The application is secure against basic XSS injections.
+## Customizations
+* **User Model:** Extended the default Devise User model to include `first_name` (string), `last_name` (string), and `role` (integer enum: owner, vet, admin).
+* **Strong Parameters:** Overrode Devise's `configure_permitted_parameters` in the ApplicationController to permit `first_name` and `last_name` during sign-up and account updates. The `role` attribute is intentionally restricted and cannot be assigned via user-facing forms.
+* **Views:** Cloned Devise views and styled them with Bootstrap (specifically the sign-in, sign-up, and edit-account forms).
